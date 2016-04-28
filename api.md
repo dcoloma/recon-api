@@ -1,6 +1,5 @@
 # RECON API
 ##INTRO
-----
 
 ###What is Recon?
 
@@ -53,9 +52,8 @@ Some examples:
   https://recon.firebaseio.com/apps/android/Clean%20Master.json
   
 ##RECON API SPECIFICATION
-----  
   
-**Show Application Leakiness **
+**Show Application Leakiness**
 ----
   This method fetches the leakiness information about the application or list of applications that match the selected criteria.
 
@@ -74,7 +72,7 @@ Some examples:
 
 * **Success Response:**
   
-  * **Code:** 200 <br />
+  * **Code:** 200
   * **Content:** `{"nonTrackerCategories":{"AndroidID":{"url1":"ksmobile.com"}},"nonTrackers":true,"popularity":44,"trackerCategories":{"AdvertiserID":{"url1":"adkmob.com"},"AndroidID":{"url1":"adkmob.com"}},"trackers":true}`
  
 * **Error Response:**
@@ -83,7 +81,46 @@ Some examples:
 
 * **Sample Call:**
 
-  TBD 
+  * **Pure JavaScript via JSONP - NO SDK**
+
+```javascript
+<head>
+<script>
+  function gotData(data) {
+    console.log(data); // contains the JSON result
+  }
+  function retrieveReconData() {
+    var scriptE = document.createElement('script');
+    // Set the source of the script element to the JSONP endpoint
+    scriptE.src = 'https://recon.firebaseio.com/apps.json?callback=gotData';
+    // append the script element to the page <head>
+    document.getElementsByTagName('head')[0].appendChild(scriptE);
+  }
+</script>
+</head>
+<body onload="retrieveReconData()">
+</body>
+```
+
+  * **JavaScript using Firebase Web SDK**
+
+```javascript
+<head>
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+  <script>
+    var myFirebaseRef = new Firebase("https://recon.firebaseio.com/");
+
+    function retrieveReconData() {
+      myFirebaseRef.once("value", function(snap) {
+        console.log("read data!");
+        console.log(snap.val());
+      });
+    }
+  </script>
+</head>
+<body onload="retrieveReconData()">
+</body>
+```
 
 * **Notes:**
 
