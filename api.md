@@ -1,33 +1,34 @@
-**INTRO**
+# RECON API
+##INTRO
 ----
 
-***What is Recon***
+###What is Recon?
 
 ReCon is a project run by Northeastern University intended to detect Personal Information leaks in Mobile Applications. It consists in a Machine Learning system that analyses the traffic that goes between mobile devices and the network and detects potential information that is leaked. That information is aggregated so that is possible to offer information about the insights discovered thanks to the analysis of all the PI leaks discovered in the user base of the tool. So far we have built an API on top of that aggregated data that let developers get information about which apps are leaking information (and which type of information) and which domains are receiving it.
 
-***How is the API built***
+###How is the API built
 
 This is API is built using Firebase, this means that all the data is available in a Firebase tree structure and can be queried by either requesting the top-level branches (to get the whole set of information) or sub-branches to get following the tree branches. The responses are always JSON files that describe the tree structure corresponding to the URL that has been queried (e.g. the endpoint that has been requested)
 
-* ***Firebase*** 
+####Firebase
 
 Firebase is a service that let developers store information in tree structure that can be easily retrieved by developers, especially in Web environments, as the whole structure or sub-structures can be retrieved as json objects that can be easily manipulated. This means that by storing all the information in Firebase we get automatically an API to fetch data from it.
 
-* ***Firebase SDK*** 
+####Firebase SDK
 
 You can query data hosted in the Firebase either by directly requesting the endpoint URLs as explained below or using any of the <a href="https://www.firebase.com/docs/"> Firebase SDKs: </a> Web, iOS, Android or REST.
 
-* ***The root endpoint***
+####The root endpoint
 
 The information is stored in a tree, that can be visualized at the Root URL of the Firebase. The URL of the Recon endpoint is: https://recon.firebaseio.com/.
 
 Sub-URLs can be also used to show only part of the tree in a browser (e.g. https://recon.firebaseio.com/apps) or to get directly the JSON representation of that part of the tree (e.g. https://recon.firebaseio.com/apps.json)
 
-* ***Return format***
+####Return format
 
 The API will return the structure of the tree serialized as a JSON object. 
 
-* ***Passing Parameters***
+####Passing Parameters
 
 Additional parameters can be passed by adding them to the root URL endpoint
 
@@ -51,7 +52,7 @@ Some examples:
   
   https://recon.firebaseio.com/apps/android/Clean%20Master.json
   
-*RECON API*
+##RECON API SPECIFICATION
 ----  
   
 **Show Application Leakiness **
@@ -74,7 +75,7 @@ Some examples:
 * **Success Response:**
   
   * **Code:** 200 <br />
-    **Content:** `{"nonTrackerCategories":{"AndroidID":{"url1":"ksmobile.com"}},"nonTrackers":true,"popularity":44,"trackerCategories":{"AdvertiserID":{"url1":"adkmob.com"},"AndroidID":{"url1":"adkmob.com"}},"trackers":true}`
+  * **Content:** `{"nonTrackerCategories":{"AndroidID":{"url1":"ksmobile.com"}},"nonTrackers":true,"popularity":44,"trackerCategories":{"AdvertiserID":{"url1":"adkmob.com"},"AndroidID":{"url1":"adkmob.com"}},"trackers":true}`
  
 * **Error Response:**
 
