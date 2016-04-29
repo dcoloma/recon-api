@@ -74,6 +74,19 @@ Some examples:
   
   * **Code:** 200
   * **Content:** `{"nonTrackerCategories":{"AndroidID":{"url1":"ksmobile.com"}},"nonTrackers":true,"popularity":44,"trackerCategories":{"AdvertiserID":{"url1":"adkmob.com"},"AndroidID":{"url1":"adkmob.com"}},"trackers":true}`
+  
+  The content is JSON that shows the information for all the apps that match the category. For every app the following information is returned:
+
+   * *popularity*: Popularity of the App in the corresponding Application Store
+   * *score*: Leakiness score of the app. TBD: How is it calculated.
+   * *trackers*: Whether the app is sending Personal Information to domains categorised as trackers or not.
+   * *trackerCategories*: An array that contains all the information categories that are leaked to tracker domains. For every category, the list of receiving domains are offered, for instance: <code>{"trackerCategories":{"AdvertiserID":{"url1":"adkmob.com"},"AndroidID":{"url1":"adkmob.com"}}</code>
+   * *nonTrackers*: Whether the app is sending Personal Information to domains categorised as trackers or not.
+   * *nonTrackerCategories*: An array that contains all the information categories that are leaked to non tracker domains. For every category, the list of receiving domains are offered, for instance: <code>{"nonTrackerCategories":{"AndroidID":{"url1":"ksmobile.com"}}</code>
+   
+
+
+  
  
 * **Error Response:**
 
@@ -101,7 +114,7 @@ Some examples:
 <body onload="retrieveReconData()">
 </body>
 ```
-
+ 
   * **JavaScript using Firebase Web SDK**
 
 ```javascript
