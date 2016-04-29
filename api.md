@@ -145,7 +145,7 @@ Some examples:
 
 * **URL**
 
- - domains/<_domainurl_>.json   (To avoid issues with encoding, the domainurl will be encoded in base16)
+ - domains/<_domainurl_>.json   (To avoid issues with encoding, the domainurl must be encoded in base16)
  
  For instance: 
  
@@ -166,8 +166,8 @@ Some examples:
 
    * *tracker*: Whether the domain has been categorised as traker or not
    * *url*: Real URL of the domain.
-   * *categories*: "AdvertiserID":{"app1":"Clean Master"},"AndroidID":{"app1":"Clean Master"}}
-   * *apps*: An array that contains all the information categories that are leaked to tracker domains. For every category, the list of receiving domains are offered, for instance: <code>"apps":{"android":{"Clean Master":{"category1":"AndroidID","category2":"AdvertiserID"}}}</code>
+   * *categories*: An array that includes all the list of categories of Personal Information that the domain receives. For every category, the list of apps doing so it is also included, e.g.: <code>"categories":{"AdvertiserID":{"app1":"Clean Master"},"AndroidID":{"app1":"Clean Master"}}</code>
+   * *apps*: An array that contains all the information about the apps that leak information to that domain. For every application, the list of types of Personal Information is included, for instance: <code>"apps":{"android":{"Clean Master":{"category1":"AndroidID","category2":"AdvertiserID"}}}</code>
  
 * **Error Response:**
 
@@ -176,7 +176,6 @@ Some examples:
 * **Sample Call:**
 
   * **Pure JavaScript via JSONP - NO SDK**
-
 ```javascript
 <head>
 <script>
@@ -195,9 +194,7 @@ Some examples:
 <body onload="retrieveReconData()">
 </body>
 ```
- 
   * **JavaScript using Firebase Web SDK**
-
 ```javascript
 <head>
   <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
@@ -215,7 +212,6 @@ Some examples:
 <body onload="retrieveReconData()">
 </body>
 ```
-
 * **Notes:**  
   
   
