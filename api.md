@@ -136,5 +136,87 @@ Some examples:
 ```
 
 * **Notes:**
-
   TBD
+  
+  
+**Show Domain Leakiness**
+----
+  This method fetches the leakiness information about a particular domain.
+
+* **URL**
+
+ - domains/<_domainurl_>.json   (To avoid issues with encoding, the domainurl will be encoded in base16)
+ 
+ For instance: 
+ 
+ https://recon.firebaseio.com/domains/61646b6d6f622e636f6d.json
+ 
+ (where 61646b6d6f622e636f6d is the domain adkmob.com encoded in base16.
+
+* **Method:**
+  
+  GET
+
+* **Success Response:**
+  
+  * **Code:** 200
+  * **Content:** `{"apps":{"android":{"Clean Master":{"category1":"AndroidID","category2":"AdvertiserID"}}},"categories":{"AdvertiserID":{"app1":"Clean Master"},"AndroidID":{"app1":"Clean Master"}},"tracker":true,"url":"adkmob.com"}`
+  
+  The content is JSON that shows the information for the Personal Information the domain receives from mobile apps:
+
+   * *tracker*: Whether the domain has been categorised as traker or not
+   * *url*: Real URL of the domain.
+   * *categories*: "AdvertiserID":{"app1":"Clean Master"},"AndroidID":{"app1":"Clean Master"}}
+   * *apps*: An array that contains all the information categories that are leaked to tracker domains. For every category, the list of receiving domains are offered, for instance: <code>"apps":{"android":{"Clean Master":{"category1":"AndroidID","category2":"AdvertiserID"}}}</code>
+ 
+* **Error Response:**
+
+  If no data is found for that domain, the API will return a null value as reponse.
+
+* **Sample Call:**
+
+  * **Pure JavaScript via JSONP - NO SDK**
+
+```javascript
+<head>
+<script>
+  function gotData(data) {
+    console.log(data); // contains the JSON result
+  }
+  function retrieveReconData() {
+    var scriptE = document.createElement('script');
+    // Set the source of the script element to the JSONP endpoint
+    scriptE.src = 'https://recon.firebaseio.com/domains/61646b6d6f622e636f6d.json?callback=gotData';
+    // append the script element to the page <head>
+    document.getElementsByTagName('head')[0].appendChild(scriptE);
+  }
+</script>
+</head>
+<body onload="retrieveReconData()">
+</body>
+```
+ 
+  * **JavaScript using Firebase Web SDK**
+
+```javascript
+<head>
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+  <script>
+    var myFirebaseRef = new Firebase("https://recon.firebaseio.com/");
+
+    function retrieveReconData() {
+      myFirebaseRef.once("value", function(snap) {
+        console.log("read data!");
+        console.log(snap.val());
+      });
+    }
+  </script>
+</head>
+<body onload="retrieveReconData()">
+</body>
+```
+
+* **Notes:**  
+  
+  
+  
