@@ -1,0 +1,90 @@
+<head>
+  <style>
+    body {
+        font: normal 10px Verdana, Arial, sans-serif;
+        padding: 5em;
+        margin: 2em;
+    }
+    div {
+        padding: 1em;
+    }
+  </style>
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <script>
+      var appName = "Bingo Pop"
+      var platform = "android"
+      var myFirebaseRef = new Firebase("https://recon.firebaseio.com/apps/" + platform + "/" + appName);
+
+      function retrieveReconData() {
+        appName = document.getElementById("form-name").value || appName; 
+        platform = document.getElementById("form-os").value || platform; 
+        document.getElementById("name").innerHTML = "";
+        document.getElementById("platform").innerHTML = "";
+        document.getElementById("score").innerHTML = "";
+        document.getElementById("popularity").innerHTML = "";
+        document.getElementById("trackers").innerHTML = "";
+        document.getElementById("non-trackers").innerHTML = "";
+        document.getElementById("info-trackers").innerHTML = "";
+        document.getElementById("info-non-trackers").innerHTML = "";
+
+        var myFirebaseRef = new Firebase("https://recon.firebaseio.com/apps/" + platform + "/" + appName);
+        myFirebaseRef.once("value", function(snap) {
+          console.log("read data!");
+          console.log(JSON.stringify(snap.val()));
+          parseApp(snap.val());
+        });
+      }
+
+      function parseApp(app) {
+        document.getElementById("name").innerHTML = appName;
+        document.getElementById("platform").innerHTML = platform;
+        document.getElementById("score").innerHTML = app.score;
+        document.getElementById("popularity").innerHTML = app.popularity;
+        document.getElementById("trackers").innerHTML = app.trackers;
+        document.getElementById("non-trackers").innerHTML = app.nonTrackers;
+
+        var tcLabels = "";
+        for (category in app.trackerCategories) {
+          tcLabels += "Category " + category + " (Domains:";
+          for (domain in app.trackerCategories[category]) {
+            tcLabels += " " + app.trackerCategories[category][domain];
+          }
+          tcLabels += ").\n";
+        }
+        document.getElementById("info-trackers").innerHTML = tcLabels;
+
+        var ntcLabels = "";
+        for (category in app.nonTrackerCategories) {
+          ntcLabels += "Category " + category + " (Domains:";
+          for (domain in app.nonTrackerCategories[category]) {
+            ntcLabels += " " + app.nonTrackerCategories[category][domain];
+          }
+          ntcLabels += ").\n";
+        }
+        document.getElementById("info-non-trackers").innerHTML = ntcLabels;
+      }
+
+  </script>
+</head>
+<body>
+  <form action="retrieveReconData(); return false;">
+    <div>
+        <label for="form-name"><b>Name:</b></label>
+        <input type="text" id="form-name" />
+    </div>
+    <div>
+        <label for="form-os"><b>Operating System:</b></label>
+        <input type="text" id="form-os" />
+    </div>
+    <a href="javascript:retrieveReconData()">Get App Info!</a>
+</form>
+  
+  <div> <b>NAME:</b> <span id="name"></span></div>
+  <div> <b>PLATFORM:</b> <span id="platform"></span></div>
+  <div> <b>SCORE:</b> <span id="score"></span></div>
+  <div> <b>POPULARITY: </b><span id="popularity"></span></div>
+  <div> <b>SENDING INFO TO TRACKER DOMAINS: </b><span id="trackers"> </span></div>
+  <div> <b>INFORMATION SENT TO TRACKERS: </b><span id="info-trackers"> </span></div>
+  <div> <b>SENDING INFORMATION TO NON TRACKER DOMAINS: </b><span id="non-trackers"> </span></div>
+  <div> <b>INFORMATION SENT TO NON TRACKERS:</b> <span id="info-non-trackers"></span> </div>
+</body>
