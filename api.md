@@ -73,7 +73,7 @@ Some examples:
 * **Success Response:**
   
   * **Code:** 200
-  * **Content:** `{"nonTrackerCategories":{"AndroidID":{"url1":"ksmobile.com"}},"nonTrackers":true,"popularity":44,"trackerCategories":{"AdvertiserID":{"url1":"adkmob.com"},"AndroidID":{"url1":"adkmob.com"}},"trackers":true}`
+  * **Content:** `{"nonTrackerCategories":{"ADVERTISERID":{"-KGnpWg-X95iuTDmlTfE":"gameanalytics.com","-KGnpWg-X95iuTDmlTfF":"d37gvrvc0wt4s1.cloudfront.net","-KGnpWg-X95iuTDmlTfG":"fyber.com"}},"nonTrackerCount":3,"nonTrackers":"true","popularity":61,"score":300,"trackerCategories":{"ADVERTISERID":{"-KGnpWfzHntgrvX0Klsj":"applovin.com","-KGnpWg-X95iuTDmlTfD":"a.applovin.com","-KGnpWg-X95iuTDmlTfH":"sponsorpay.com"}},"trackerCount":3,"trackers":"true"}`
   
   The content is JSON that shows the information for all the apps that match the category. For every app the following information is returned:
 
@@ -84,10 +84,6 @@ Some examples:
    * *nonTrackers*: Whether the app is sending Personal Information to domains categorised as trackers or not.
    * *nonTrackerCategories*: An array that contains all the information categories that are leaked to non tracker domains. For every category, the list of receiving domains are offered, for instance: <code>{"nonTrackerCategories":{"AndroidID":{"url1":"ksmobile.com"}}</code>
    
-
-
-  
- 
 * **Error Response:**
 
   If no data is found for that application, the API will return a null value as reponse.
@@ -98,18 +94,18 @@ Some examples:
 
 ```javascript
 <head>
-<script>
-  function gotData(data) {
-    console.log(data); // contains the JSON result
-  }
-  function retrieveReconData() {
-    var scriptE = document.createElement('script');
-    // Set the source of the script element to the JSONP endpoint
-    scriptE.src = 'https://recon.firebaseio.com/apps.json?callback=gotData';
-    // append the script element to the page <head>
-    document.getElementsByTagName('head')[0].appendChild(scriptE);
-  }
-</script>
+  <script>
+    function gotData(data) {
+      console.log(JSON.stringify(data)); // contains the JSON result
+    }
+    function retrieveReconData() {
+      var scriptE = document.createElement('script');
+      // Set the source of the script element to the JSONP endpoint
+      scriptE.src = 'https://recon.firebaseio.com/apps/android/Bingo%20Pop.json?callback=gotData';
+      // append the script element to the page <head>
+      document.getElementsByTagName('head')[0].appendChild(scriptE);
+    }
+  </script>
 </head>
 <body onload="retrieveReconData()">
 </body>
@@ -120,15 +116,15 @@ Some examples:
 ```javascript
 <head>
   <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
-  <script>
-    var myFirebaseRef = new Firebase("https://recon.firebaseio.com/");
+    <script>
+      var myFirebaseRef = new Firebase("https://recon.firebaseio.com/apps/android/Bingo%20Pop");
 
-    function retrieveReconData() {
-      myFirebaseRef.once("value", function(snap) {
-        console.log("read data!");
-        console.log(snap.val());
-      });
-    }
+      function retrieveReconData() {
+        myFirebaseRef.once("value", function(snap) {
+          console.log("read data!");
+          console.log(JSON.stringify(snap.val()));
+        });
+      }
   </script>
 </head>
 <body onload="retrieveReconData()">
@@ -137,7 +133,6 @@ Some examples:
 
 * **Notes:**
   TBD
-  
   
 **Show Domain Leakiness**
 ----
@@ -160,7 +155,7 @@ Some examples:
 * **Success Response:**
   
   * **Code:** 200
-  * **Content:** `{"apps":{"android":{"Clean Master":{"category1":"AndroidID","category2":"AdvertiserID"}}},"categories":{"AdvertiserID":{"app1":"Clean Master"},"AndroidID":{"app1":"Clean Master"}},"tracker":true,"url":"adkmob.com"}`
+  * **Content:** `{"apps":{"android":{"Coin Dozer - Free Prizes!":{"-KGnpWjQjChcbv8115jo":"IMEI","-KGnpWjRYr0l6wuGOjNS":"ANDROIDID"},"Prize Claw 2":{"-KGnpWjQjChcbv8115jk":"ADVERTISERID","-KGnpWjQjChcbv8115jq":"IMEI","-KGnpWjRYr0l6wuGOjNU":"ANDROIDID"},"TropWorld Casino":{"-KGnpWjQjChcbv8115ji":"ADVERTISERID","-KGnpWjQjChcbv8115jm":"IMEI","-KGnpWjQjChcbv8115js":"GENDER","-KGnpWjQjChcbv8115ju":"ANDROIDID"}},"ios":{"1010!":{"-KGnpWjRYr0l6wuGOjNW":"IDFA"},"Criminal Case":{"-KGnpWjRYr0l6wuGOjNY":"IDFA"}}},"categories":{"ADVERTISERID":{"android":{"-KGnpWjQjChcbv8115jj":"TropWorld Casino","-KGnpWjQjChcbv8115jl":"Prize Claw 2"}},"ANDROIDID":{"android":{"-KGnpWjRYr0l6wuGOjNR":"TropWorld Casino","-KGnpWjRYr0l6wuGOjNT":"Coin Dozer - Free Prizes!","-KGnpWjRYr0l6wuGOjNV":"Prize Claw 2"}},"GENDER":{"android":{"-KGnpWjQjChcbv8115jt":"TropWorld Casino"}},"IDFA":{"ios":{"-KGnpWjRYr0l6wuGOjNX":"1010!","-KGnpWjRYr0l6wuGOjNZ":"Criminal Case"}},"IMEI":{"android":{"-KGnpWjQjChcbv8115jn":"TropWorld Casino","-KGnpWjQjChcbv8115jp":"Coin Dozer - Free Prizes!","-KGnpWjQjChcbv8115jr":"Prize Claw 2"}}},"tracker":false,"url":"kontagent.net"}`
   
   The content is JSON that shows the information for the Personal Information the domain receives from mobile apps:
 
@@ -178,18 +173,19 @@ Some examples:
   * **Pure JavaScript via JSONP - NO SDK**
 ```javascript
 <head>
-<script>
+  <script>
   function gotData(data) {
-    console.log(data); // contains the JSON result
+    console.log(JSON.stringify(data)); // contains the JSON result
   }
+  
   function retrieveReconData() {
     var scriptE = document.createElement('script');
     // Set the source of the script element to the JSONP endpoint
-    scriptE.src = 'https://recon.firebaseio.com/domains/61646b6d6f622e636f6d.json?callback=gotData';
+    scriptE.src = 'https://recon.firebaseio.com/domains/6b6f6e746167656e742e6e6574.json?callback=gotData';
     // append the script element to the page <head>
     document.getElementsByTagName('head')[0].appendChild(scriptE);
   }
-</script>
+  </script>
 </head>
 <body onload="retrieveReconData()">
 </body>
@@ -198,15 +194,15 @@ Some examples:
 ```javascript
 <head>
   <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
-  <script>
-    var myFirebaseRef = new Firebase("https://recon.firebaseio.com/");
+    <script>
+      var myFirebaseRef = new Firebase("https://recon.firebaseio.com/domains/6b6f6e746167656e742e6e6574");
 
-    function retrieveReconData() {
-      myFirebaseRef.once("value", function(snap) {
-        console.log("read data!");
-        console.log(snap.val());
-      });
-    }
+      function retrieveReconData() {
+        myFirebaseRef.once("value", function(snap) {
+          console.log("read data!");
+          console.log(JSON.stringify(snap.val()));
+        });
+      }
   </script>
 </head>
 <body onload="retrieveReconData()">
