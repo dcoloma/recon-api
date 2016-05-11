@@ -1,9 +1,11 @@
 # RECON API
 ##INTRO
 
-###What is Recon?
+###What is ReCon?
 
-ReCon is a project run by Northeastern University intended to detect Personal Information leaks in Mobile Applications. It consists in a Machine Learning system that analyses the traffic that goes between mobile devices and the network and detects potential information that is leaked. That information is aggregated so that is possible to offer information about the insights discovered thanks to the analysis of all the PI leaks discovered in the user base of the tool. So far we have built an API on top of that aggregated data that let developers get information about which apps are leaking information (and which type of information) and which domains are receiving it.
+<a href="http://recon.meddle.mobi/">ReCon</a> is a project run by Northeastern University intended to detect Personal Information leaks in Mobile Applications. It consists in a Machine Learning system that analyses the traffic that goes between mobile devices and the network and detects potential information that is leaked. That information is aggregated so that is possible to offer information about the insights discovered thanks to the analysis of all the PI leaks discovered in the user base of the tool. So far we have built an API on top of that aggregated data that let developers get information about which apps are leaking information (and which type of information) and which domains are receiving it.
+
+ReCon is one of the projects that received one of the <a href="http://www.datatransparencylab.org/grantees.html"> 6 Data Transparency Lab Awards in 2015</a>. You can find more information about ReCon at their Website: http://datatransparencylab.github.io/recon/index.html.
 
 ###How is the API built
 
@@ -63,8 +65,7 @@ Some examples:
  - apps/<_platform_>.json (To retrieve the information about all the apps for a given platform)
  - apps/<_platform_>/<_appname_>.json (To retrieve the information about a particular app for a specific platform)
 
-   Where <_platform_> could be either android, windows, ios
-   Where <_appname_> is the application name as registered in the Apple Store, Google Play, Windows Marketplace
+  Where <_platform_> could be either <i>android</i>, <i>windows</i>, <i>ios</i> and <_appname_> is the application name as registered in the Apple Store, Google Play, Windows Marketplace
 
 * **Method:**
   
@@ -130,10 +131,13 @@ Some examples:
 <body onload="retrieveReconData()">
 </body>
 ```
+* **Complete working examples:**
 
-* **Notes:**
-  TBD
-  
+Complete fully functional working examples can be found at:
+
+- http://dcoloma.github.io/recon-api/getAppInfoJS.html
+- http://dcoloma.github.io/recon-api/getAppInfoFirebase.html
+
 **Show Domain Leakiness**
 ----
   This method fetches the leakiness information about a particular domain.
@@ -171,6 +175,9 @@ Some examples:
 * **Sample Call:**
 
   * **Pure JavaScript via JSONP - NO SDK**
+  
+  A full example is available at: http://dcoloma.github.io/recon-api/getDomainInfoJS.html the key snippet is
+  
 ```javascript
 <head>
   <script>
@@ -208,7 +215,28 @@ Some examples:
 <body onload="retrieveReconData()">
 </body>
 ```
-* **Notes:**  
-  
-  
-  
+
+* **Complete working examples:**
+
+Complete fully functional working examples can be found at:
+
+- http://dcoloma.github.io/recon-api/getDomainInfoJS.html
+- http://dcoloma.github.io/recon-api/getDomainInfoFirebase.html
+
+## USAGE IDEAS
+
+### Interactive Visualizations
+
+One potential usage of this API is providing an interactive visualization about how mobile applications are leaking information, which type of information and to which domains. <a href="http://datatransparencylab.github.io/recon/">A draft visualization is already available at the DTL GitHub page</a>.
+
+### Browser Plugin 
+
+Another potential usage is developing a Browser plugin that when browsing iTunes or Google Play pages for an application, provides information about the potential information leakages of that application.
+
+Also, the plugin could be used to inform users when they are browsing a website that is receiving Personal Information from mobile applications.
+
+### How leaking your device is?
+
+Another alternative would be developing an application that inspect all the applications installed in the device and let the users know how "leaking" the device is based on the leakiness of the individual applications.
+
+
