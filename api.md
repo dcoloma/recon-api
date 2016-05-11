@@ -223,6 +223,125 @@ Complete fully functional working examples can be found at:
 - http://dcoloma.github.io/recon-api/getDomainInfoJS.html
 - http://dcoloma.github.io/recon-api/getDomainInfoFirebase.html
 
+
+
+**Show Personal Information Category Leakiness**
+----
+  This method fetches all the information about a Personal Information Category.
+
+* **URL**
+
+ - categories/<_category_id_>.json   
+ 
+ For instance: 
+ 
+https://recon.firebaseio.com/categories/DOB.json
+
+* **Method:**
+  
+  GET
+
+* **Success Response:**
+  
+  * **Code:** 200
+  * **Content:** `{"apps":{"All":["Run with Map My Run(ios)","Gaana(ios)"],"ios":["Run with Map My Run","Gaana"]},"description":"Birth Date","group":"PERSONAL_INFO","nonTrackers":{"All":["www.mapmyfitness.com","gaana.com"],"ios":["www.mapmyfitness.com","gaana.com"]},"numberApps":{"All":2,"android":0,"ios":2,"windows":0},"numberNonTrackers":{"All":2,"android":0,"ios":2,"windows":0},"numberTrackers":{"All":0,"android":0,"ios":0,"windows":0}}`
+  
+  The content is JSON that shows the information for that particular category:
+
+   * *description*: A description for the category ID (e.g. Birth Date)
+   * *group*: The top level group of information in which the category fits (e.g. PERSONAL_INFO)
+   * *apps*: An array that includes the apps aggregated for all the operating systems and detailed for each one, e.g.: <code>"apps":{"All":["Run with Map My Run(ios)","Gaana(ios)"],"ios":["Run with Map My Run","Gaana"]}</code>
+   * *nonTrackers*: An array that contains all the non tracker domains that receive this type of information, aggregated and detailed  per operating system, for instance: <code>"All":["www.mapmyfitness.com","gaana.com"],"ios":["www.mapmyfitness.com","gaana.com"]},"numberApps":{"All":2,"android":0,"ios":2,"windows":0</code>
+   * *trackers*: An array that contains all the tracker domains that receive this type of information, aggregated and detailed  per operating system
+   * *numerApps*: An array that includes the number of apps sending information for all the operating systems and per operating system, e.g. <code>{"All":2,"android":0,"ios":2,"windows":0}</code>
+   * *numerNonTrackers*: An array that includes the number of non tracker domains receiving information aggregated for all the operating systems and detailed per operating system, e.g. <code>{"All":2,"android":0,"ios":2,"windows":0}</code>
+   * *numerTrackers*: An array that includes the number of  tracker domains receiving information aggregated for all the operating systems and detailed per operating system, e.g. <code>{"All":2,"android":0,"ios":2,"windows":0}</code>
+ 
+* **Error Response:**
+
+  If no data is found for that domain, the API will return a null value as reponse.
+
+* **Sample Call:**
+
+  * **Pure JavaScript via JSONP - NO SDK**
+  
+```javascript
+<head>
+  <script>
+  function gotData(data) {
+    console.log(JSON.stringify(data)); // contains the JSON result
+  }
+  
+  function retrieveReconData() {
+    var scriptE = document.createElement('script');
+    // Set the source of the script element to the JSONP endpoint
+    scriptE.src = 'https://recon.firebaseio.com/domains/DOB.json?callback=gotData';
+    // append the script element to the page <head>
+    document.getElementsByTagName('head')[0].appendChild(scriptE);
+  }
+  </script>
+</head>
+<body onload="retrieveReconData()">
+</body>
+```
+  * **JavaScript using Firebase Web SDK**
+```javascript
+<head>
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <script>
+      var myFirebaseRef = new Firebase("https://recon.firebaseio.com/domains/DOB");
+
+      function retrieveReconData() {
+        myFirebaseRef.once("value", function(snap) {
+          console.log("read data!");
+          console.log(JSON.stringify(snap.val()));
+        });
+      }
+  </script>
+</head>
+<body onload="retrieveReconData()">
+</body>
+```
+
+* **Complete working examples:**
+
+Complete fully functional working examples can be found at:
+
+- http://dcoloma.github.io/recon-api/getCategoryInfoJS.html
+- http://dcoloma.github.io/recon-api/getCategoryInfoFirebase.html
+
+* **Notes:**
+
+The list of categories used so far is:
+
+- LOCATION
+- X_WP_DEVICE_ID
+- MUID
+- X_WP_ANID
+- LASTNAME
+- ADVERTISERID
+- ANDROIDID
+- MACADDR
+- SERIALNUMBER
+- FIRSTNAME
+- IMEI
+- GENDER
+- ZIPCODE
+- USERNAME
+- PASSWORD
+- EMAIL
+- CONTACTNAME
+- IDFA
+- DEVICENAME
+- CONTACTNUMBER
+- FULLNAME
+- ADDRESS
+- MEID
+- DOB
+- PSWD
+- PROFILE
+- RELATIONSHIP
+
 ## USAGE IDEAS
 
 ### Interactive Visualizations
