@@ -358,4 +358,47 @@ Also, the plugin could be used to inform users when they are browsing a website 
 
 Another alternative would be developing an application that inspect all the applications installed in the device and let the users know how "leaking" the device is based on the leakiness of the individual applications.
 
+## API LIMITATIONS
 
+The number of users of the system that generate the aggregated data that is exposed is limited so the dataset might not cover all the geographies and potentially leaking apps. Additionally, the API is not feeding the dataset in real-time yet.
+
+## FEEDBACK
+
+Both the project and the API are in a very preliminary status. Hence we would be grateful about any feedback you can give us!
+
+Types of feedback we are eager to get:
+
+- Is any missing information that could make this data more useful?
+- Is there are any better way to structure the information?
+- Is there any missing API?
+
+## CONTACTING US
+
+Join #datatransparencylab on irc.freenode.net to chat with us real time, or leave a message that will be logged 
+
+## SOME USEFUL LINKS
+
+### ReCon Project
+
+http://recon.meddle.mobi/
+
+### Data Transparency Lab
+
+http://www.datatransparencylab.org/
+
+### Firebase SDK
+
+https://www.firebase.com/docs/
+
+### Sample Visualizations
+
+http://datatransparencylab.github.io/recon/
+
+### Usage Examples
+
+  - http://dcoloma.github.io/recon-api/getAppInfoJS.html
+  - http://dcoloma.github.io/recon-api/getAppInfoFirebase.html
+  - http://dcoloma.github.io/recon-api/getDomainInfoJS.html
+  - http://dcoloma.github.io/recon-api/getDomainInfoFirebase.html
+  - http://dcoloma.github.io/recon-api/getCategoryInfoJS.html
+  - http://dcoloma.github.io/recon-api/getCategoryInfoFirebase.html
