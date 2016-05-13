@@ -354,7 +354,7 @@ Another potential usage is developing a Browser plugin that when browsing iTunes
 
 Also, the plugin could be used to inform users when they are browsing a website that is receiving Personal Information from mobile applications.
 
-### How leaking your device is?
+### How much does your device leak?
 
 Another alternative would be developing an application that inspect all the applications installed in the device and let the users know how "leaking" the device is based on the leakiness of the individual applications.
 
